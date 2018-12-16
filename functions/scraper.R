@@ -7,33 +7,48 @@
 # --------------
 
 
-# libraries ---------------------------------------------------------------
+# Libraries ---------------------------------------------------------------
   
   library(httr)
   library(XML)
 
-# settings
-
+# Settings ----------------------------------------------------------------
+  
   url_base <- "http://www.dr.dk/nyheder/allenyheder/"
   date_start <- as.Date("2018-07-01")
   date_end <- as.Date("2018-12-16")
-  
-# scraper URL'er på dr.dk-nyheder
-  
+
+
+# Scraping URL's to news stories on dr.dk ---------------------------------
+
   days <- as.integer(difftime(date_end, date_start))
+  urls <- NULL
   
   for(i in 0:days){
     date_i <- date_start + i
-    url <- paste0(url_base, format(date_start, "%d%m%Y"))
+    url <- paste0(url_base, format(date_start+i, "%d%m%Y"))
+    temp <- GET(url)
+    temp <- htmlParse(temp)
+    links <- as.vector(xpathSApply(temp, "//h3/a/@href"))
+    urls <- unique(c(links, urls))
+    message(paste("scraping", date_i, "-", length(urls), "urls collected"))
   }
+
+  remove(temp, links, i, days, url, date_i, url_base)
+  
+
+# Scraping text for each article ------------------------------------------
+
+ # for(i in 1:length(urls)){
+    temp <- get(paste0("www.dr.dk/", urls[i]))
+    temp <- htmlParse(temp)
+    
+    
+ # }
   
   
-  date_i <- date_start + i
-  url_date_i <- paste0(url, format(date_start, "%d%m%Y"))
   
   
   
-  temp <- GET(url_date_i)
-  temp <- htmlParse(temp)
-  links <- as.vector(xpathSApply(temp, "//h3/a/@href"))
-  #free(temp)
+  save.image()
+  

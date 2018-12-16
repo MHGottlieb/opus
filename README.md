@@ -16,12 +16,16 @@ This repository will be updated as modules are constructed. I'll try to document
   3. Define method for identifying and reporting relevant topics, using Structural Topic Modelling
   
 2. Service-basics
-  1. Create a web-client for users to set up their own search-parameters
-  2. Create a daily report with relevant news - the most relevant on topics
-  3. Add summary statistics per day
+	1. Create a web-client for users to set up their own search-parameters
+	2. Create a daily report with relevant news - the most relevant on topics
+	3. Add summary statistics per day
   
 3. Refine 
-  1.   
-  
-  
+  1. Build website
+  2. Add user features, i.e. login, dashboard, charts
+  3. Add sentiment analysis
+   
 3. Expand
+  1. Move to cloud
+  2. Include more media
+	
