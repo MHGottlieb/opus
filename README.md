@@ -11,21 +11,21 @@ Project Opus was born from a frustation with existing Danish news monitoring sol
 This repository will be updated as modules are constructed. I'll try to document the work in this README. Currently, the tentative work plan will be:
 
 1. Proof of concept
-  1. Create a realiable and efficient web-scraper to pull news (text) articles from relevant news media (i.e. www.dr.dk)
-  2. Create and maintain an updated database of older news for the last X months
-  3. Define method for identifying and reporting relevant topics, using Structural Topic Modelling
+   1. Create a realiable and efficient web-scraper to pull news (text) articles from relevant news media (i.e. www.dr.dk)
+   2. Create and maintain an updated database of older news for the last X months
+   3. Define method for identifying and reporting relevant topics, using Structural Topic Modelling
   
 2. Service-basics
-	1. Create a web-client for users to set up their own search-parameters
-	2. Create a daily report with relevant news - the most relevant on topics
-	3. Add summary statistics per day
+   1. Create a web-client for users to set up their own search-parameters
+   2. Create a daily report with relevant news - the most relevant on topics
+   3. Add summary statistics per day
   
 3. Refine 
-  1. Build website
-  2. Add user features, i.e. login, dashboard, charts
-  3. Add sentiment analysis
+   1. Build website
+   2. Add user features, i.e. login, dashboard, charts
+   3. Add sentiment analysis
    
 3. Expand
-  1. Move to cloud
-  2. Include more media
+   1. Move to cloud
+   2. Include more media
 	
