@@ -21,40 +21,39 @@
 # Scraping URL's to news stories on dr.dk ---------------------------------
 
   days <- as.integer(difftime(date_end, date_start))
-  urls <- NULL
-  dates <- NULL
+  articles <- NULL
   
   for(i in 0:days){
-    date_i <- date_start + i
-    url <- paste0(url_base, format(date_start+i, "%d%m%Y"))
+    date_i <- format(date_start+i, "%d%m%Y")
+    url <- paste0(url_base, date_i)
     temp <- GET(url)
     temp <- htmlParse(temp)
-    links <- as.vector(xpathSApply(temp, "//h3/a/@href"))
-    urls <- unique(c(links, urls))
-    
-    message(paste("scraping", date_i, "-", length(urls), "urls collected"))
+    links <- cbind(as.vector(xpathSApply(temp, "//h3/a/@href")), date_i)
+    articles <- unique(rbind(links, articles))
+    message(paste("scraping", date_i, "-", length(articles), "urls collected"))
   }
   
-  articles$url <- urls
   remove(temp, links, i, days, url, date_i, url_base)
 
   # Creating data frame -----------------------------------------------------
   
-  articles <- data.frame(url = urls, date=)
+  articles <- data.frame(articles)
+  names(articles) <- c("url", "date")
   
 # Scraping text for each article ------------------------------------------
-
- # for(i in 1:length(urls)){
-    temp <- GET(paste0("www.dr.dk", urls[i]))
+ 
+articles$text <- NA
+  
+  for(i in 1:nrow(articles)){
+    temp <- GET(paste0("www.dr.dk", articles$url[i]))
     temp <- htmlParse(temp)
     text <- xpathSApply(temp, "//p", xmlValue)
     text <- paste(text, collapse=" ")
-    data <- 
- # }
+    articles$text[i] <- text 
+    message(paste("scraping article", i, "of", nrow(articles) ))
+  }
+
+
+# Counting words in each article ------------------------------------------
   
-  
-  
-  
-  
-  save.image()
-  
+  articles$words <- lengths(strsplit(articles$text, "\\W+"))
