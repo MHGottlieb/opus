@@ -16,13 +16,13 @@
   
   url_base <- "http://www.dr.dk/nyheder/allenyheder/"
   date_start <- as.Date("2018-07-01")
-  date_end <- as.Date("2018-12-16")
-
+  date_end <- as.Date("2018-12-15")
 
 # Scraping URL's to news stories on dr.dk ---------------------------------
 
   days <- as.integer(difftime(date_end, date_start))
   urls <- NULL
+  dates <- NULL
   
   for(i in 0:days){
     date_i <- date_start + i
@@ -31,19 +31,25 @@
     temp <- htmlParse(temp)
     links <- as.vector(xpathSApply(temp, "//h3/a/@href"))
     urls <- unique(c(links, urls))
+    
     message(paste("scraping", date_i, "-", length(urls), "urls collected"))
   }
-
-  remove(temp, links, i, days, url, date_i, url_base)
   
+  articles$url <- urls
+  remove(temp, links, i, days, url, date_i, url_base)
 
+  # Creating data frame -----------------------------------------------------
+  
+  articles <- data.frame(url = urls, date=)
+  
 # Scraping text for each article ------------------------------------------
 
  # for(i in 1:length(urls)){
-    temp <- get(paste0("www.dr.dk/", urls[i]))
+    temp <- GET(paste0("www.dr.dk", urls[i]))
     temp <- htmlParse(temp)
-    
-    
+    text <- xpathSApply(temp, "//p", xmlValue)
+    text <- paste(text, collapse=" ")
+    data <- 
  # }
   
   
