@@ -53,7 +53,11 @@ articles$text <- NA
     message(paste("scraping article", i, "of", nrow(articles) ))
   }
 
-
 # Counting words in each article ------------------------------------------
   
   articles$words <- lengths(strsplit(articles$text, "\\W+"))
+  
+# Saving data
+  
+  setwd("..")
+  save(articles, file="/data/articles.rda")
